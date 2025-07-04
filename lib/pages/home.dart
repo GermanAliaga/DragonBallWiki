@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:maqueta_3/services/api_service.dart';
 import 'package:maqueta_3/widgets/mydrawer.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -9,16 +10,16 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  @override
+  void initState()
+  {
+    
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {    
+  ServiceApi('https://www.dragonball-api.com/api');
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -27,21 +28,11 @@ class _MyHomePageState extends State<MyHomePage> {
       drawer: MyDrawer(),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
+          children: [
+
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
+      )
     );
   }
 }
