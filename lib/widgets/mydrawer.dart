@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:maqueta_3/pages/character_list_screen.dart';
 import 'package:maqueta_3/pages/home.dart';
 
 class MyDrawer extends StatefulWidget {
@@ -24,17 +25,17 @@ class _MyDrawerState extends State<MyDrawer> {
               color: Color.fromARGB(248, 117, 208, 231),
             ),
             child: Text(
-              'DocFileApp',
+              'DragonBallWiki',
               style: TextStyle(fontSize: 30),
             ),
           ),
         ),
         ListTile(
-          title: const Text('Inicio'),
+          title: const Text('Personajes'),
           onTap: () {
             Navigator.pop(context);
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const MyHomePage()));
+                MaterialPageRoute(builder: (context) => const CharacterListScreen()));
           },
         ),
       ],
