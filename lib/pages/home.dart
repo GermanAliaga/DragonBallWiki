@@ -13,12 +13,14 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState()
   {
-    
+    super.initState();
+    //ServiceApi('https://www.dragonball-api.com/api/characters/1');
+
   }
 
   @override
   Widget build(BuildContext context) {    
-  ServiceApi('https://www.dragonball-api.com/api');
+  //ServiceApi('https://www.dragonball-api.com/api');
 
     return Scaffold(
       appBar: AppBar(

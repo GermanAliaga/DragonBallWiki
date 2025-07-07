@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:maqueta_3/pages/character_list_screen.dart';
 import 'package:maqueta_3/pages/home.dart';
 
 void main() {
@@ -11,11 +12,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home: const MyHomePage(),
+      title: 'Dragon Ball App',
+      theme: ThemeData(primarySwatch: Colors.orange),
+      home: const CharacterListScreen(),
     );
   }
 }
