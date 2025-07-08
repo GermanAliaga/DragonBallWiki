@@ -39,7 +39,7 @@ Estructura de la capeta lib:\
 ## Evidencias aplicación
 ![Evidencia](imagenes/ScreenshotsAplicacion.png)
 
-##Lista de actividades por hacer
+## Lista de actividades por hacer
 -Mostrar los planetas\
 -Mostrar las transformaciones\
 -Hacer la lógica de las peleas\
