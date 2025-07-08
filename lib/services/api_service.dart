@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:maqueta_3/models/character_model.dart';
+import 'package:maqueta_3/models/planet_model.dart';
 
 
 class ApiService {
@@ -14,6 +15,17 @@ class ApiService {
       return Character.fromJson(jsonData);
     } else {
       throw Exception('Error al obtener personaje con ID $id');
+    }
+  }
+
+  Future<Planet> fetchPlanetById(int id) async {
+    final response = await http.get(Uri.parse('$_baseUrl/planets/$id'));
+
+    if(response.statusCode == 200) {
+      final jsonData = jsonDecode(response.body);
+      return Planet.fromJson(jsonData);
+    } else {
+      throw Exception('Error al obtener planeta con ID: $id');
     }
   }
 
@@ -41,8 +53,33 @@ class ApiService {
         throw Exception('Fallo al obtener los personajes en la página $currentPage');
       }
     }
-
     return allCharacters;
   }
 
+  Future<List<Planet>> fetchAllPlanets() async {
+    int currentPage = 1;
+    int totalPages = 1;
+    List<Planet> allPlanets = [];
+
+    while (currentPage <= totalPages) {
+      final response = await http.get(Uri.parse('https://dragonball-api.com/api/planets?page=$currentPage&limit=2'));
+
+      if (response.statusCode == 200) {
+        final jsonData = jsonDecode(response.body);
+        final items = jsonData['items'] as List;
+
+        final planetPage = items.map((e) => Planet.fromJson(e)).toList();
+        allPlanets.addAll(planetPage);
+
+        if (currentPage == 1) {
+          totalPages = jsonData['meta']['totalPages'];
+        }
+
+        currentPage++;
+      } else {
+        throw Exception('Fallo al obtener los planetas en la página $currentPage');
+      }
+    }
+    return allPlanets;
+  }
 }

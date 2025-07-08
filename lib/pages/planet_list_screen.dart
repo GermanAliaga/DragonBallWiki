@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:maqueta_3/models/character_model.dart';
+import 'package:maqueta_3/models/planet_model.dart';
 import 'package:maqueta_3/pages/character_detail_screen.dart';
 import 'package:maqueta_3/services/api_service.dart';
 import 'package:maqueta_3/widgets/mydrawer.dart';
@@ -13,12 +14,12 @@ class PlanetListScreen extends StatefulWidget {
 }
 
 class _PlanetListScreenState extends State<PlanetListScreen> {
-  //late Future<List<Character>> _futureCharacters;
+  late Future<List<Planet>> _futurePlanets;
 
   @override
   void initState() {
     super.initState();
-    //_futureCharacters = ApiService().fetchAllCharacters();
+    //_futurePlanets = ApiService().fetchAllPlanets();
   }
 
   @override
@@ -28,11 +29,8 @@ class _PlanetListScreenState extends State<PlanetListScreen> {
         title: const Text('Personajes de Dragon Ball Z'),
       ),
       drawer: MyDrawer(),
-      body: const Card(
-        child: Text('Proximamente... Planetas'),
-      )
       /*body: FutureBuilder<List<Character>>(
-        future: _futureCharacters,
+        future: _futurePlanets,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
