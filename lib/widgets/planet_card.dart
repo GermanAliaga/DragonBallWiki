@@ -29,13 +29,11 @@ class PlanetCard extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            /*const SizedBox(height: 16),
-            Text('Raza: ${character.race}'),
-            Text('Género: ${character.gender}'),
-            Text('Afiliación: ${character.affiliation}'),
-            Text('Ki: ${character.ki}'),
-            Text('Ki Máximo: ${character.maxKi}'),
-            const SizedBox(height: 16),*/
+            const SizedBox(height: 16),
+            Text('Nombre: ${planeta.name}'),
+            Text('Estado: '),
+            Text('Dexcripción: ${planeta.description}'),
+            const SizedBox(height: 16),
             Text(
               planeta.description,
               textAlign: TextAlign.justify,
