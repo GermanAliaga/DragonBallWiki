@@ -38,3 +38,15 @@ Estructura de la capeta lib:\
 
 ## Evidencias aplicación
 ![Evidencia](imagenes/ScreenshotsAplicacion.png)
+
+##Lista de actividades por hacer
+-Mostrar los planetas\
+-Mostrar las transformaciones\
+-Hacer la lógica de las peleas\
+-Hacer un sistema de torneos \
+-Implementar filtros de búsqueda\ 
+-Modificar orientación de la pantalla para los combates \
+-Hacer tabs para la navegación entre pantallas.\
+-Implementar Tema\
+-Mejorar el aspecto visual\
+
