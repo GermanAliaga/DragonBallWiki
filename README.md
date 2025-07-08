@@ -35,3 +35,6 @@ Estructura de la capeta lib:\
 │   ├── favorites_provider.dart\
 │   ├── preferences_provider.dart\
 │   └── database_helper.dart\
+
+## Evidencias aplicación
+![Evidencia](imagenes/ScreenshotsAplicacion.png)
