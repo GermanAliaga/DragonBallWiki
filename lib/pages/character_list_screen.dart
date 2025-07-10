@@ -3,6 +3,7 @@ import 'package:maqueta_3/models/character_model.dart';
 import 'package:maqueta_3/pages/character_detail_screen.dart';
 import 'package:maqueta_3/services/api_service.dart';
 import 'package:maqueta_3/widgets/mydrawer.dart';
+import 'package:maqueta_3/widgets/myfooter.dart';
 
 
 class CharacterListScreen extends StatefulWidget {
@@ -26,8 +27,9 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Personajes de Dragon Ball Z'),
+        leading: null,
       ),
-      drawer: MyDrawer(),
+      bottomNavigationBar: MyFooter(),
       body: FutureBuilder<List<Character>>(
         future: _futureCharacters,
         builder: (context, snapshot) {

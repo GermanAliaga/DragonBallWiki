@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:maqueta_3/models/character_model.dart';
 import 'package:maqueta_3/models/planet_model.dart';
-import 'package:maqueta_3/widgets/character_card.dart';
 import 'package:maqueta_3/widgets/planet_card.dart';
 
 class PlanetDetailScreen extends StatelessWidget {

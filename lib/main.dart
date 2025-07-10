@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:maqueta_3/pages/character_list_screen.dart';
-import 'package:maqueta_3/pages/home.dart';
 
 void main() {
   runApp(const MyApp());

@@ -31,7 +31,7 @@ class PlanetCard extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Text('Nombre: ${planeta.name}'),
-            Text('Estado: '),
+            Text('Estado: ${planeta.isDestroyed}'),
             const SizedBox(height: 16),
             Text(
               planeta.description,
