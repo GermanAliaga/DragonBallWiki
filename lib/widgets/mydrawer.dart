@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:maqueta_3/pages/character_list_screen.dart';
 import 'package:maqueta_3/pages/home.dart';
+import 'package:maqueta_3/pages/planet_list_screen.dart';
 
 class MyDrawer extends StatefulWidget {
   const MyDrawer({
@@ -22,7 +23,7 @@ class _MyDrawerState extends State<MyDrawer> {
           height: 125,
           child: DrawerHeader(
             decoration: BoxDecoration(
-              color: Color.fromARGB(248, 117, 208, 231),
+              color: Colors.orange,
             ),
             child: Text(
               'DragonBallWiki',
@@ -36,6 +37,14 @@ class _MyDrawerState extends State<MyDrawer> {
             Navigator.pop(context);
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const CharacterListScreen()));
+          },
+        ),
+        ListTile(
+          title: const Text('Planetas'),
+          onTap: () {
+            Navigator.pop(context);
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const PlanetListScreen()));
           },
         ),
       ],
