@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:maqueta_3/models/character_model.dart';
-import 'package:maqueta_3/pages/character_detail_screen.dart';
-import 'package:maqueta_3/services/api_service.dart';
+import 'package:dragonballwiki/models/character_model.dart';
+import 'package:dragonballwiki/pages/character_detail_screen.dart';
+import 'package:dragonballwiki/services/api_service.dart';
 
 class CharacterListScreen extends StatefulWidget {
   const CharacterListScreen({Key? key}) : super(key: key);

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:maqueta_3/theme/themes.dart';
+import 'package:dragonballwiki/theme/themes.dart';
 
 class AppData extends ChangeNotifier {
   bool _themeDark = false;

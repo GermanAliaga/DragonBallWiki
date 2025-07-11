@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:maqueta_3/models/planet_model.dart';
-import 'package:maqueta_3/pages/planet_detail_screen.dart';
-import 'package:maqueta_3/services/api_service.dart';
-import 'package:maqueta_3/widgets/myfooter.dart';
+import 'package:dragonballwiki/models/planet_model.dart';
+import 'package:dragonballwiki/pages/planet_detail_screen.dart';
+import 'package:dragonballwiki/services/api_service.dart';
+import 'package:dragonballwiki/widgets/myfooter.dart';
 
 
 class PlanetListScreen extends StatefulWidget {

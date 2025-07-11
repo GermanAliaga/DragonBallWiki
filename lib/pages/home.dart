@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:maqueta_3/services/api_service.dart';
-import 'package:maqueta_3/widgets/mydrawer.dart';
+import 'package:dragonballwiki/services/api_service.dart';
+import 'package:dragonballwiki/widgets/mydrawer.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});

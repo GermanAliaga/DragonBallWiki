@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:maqueta_3/models/planet_model.dart';
+import 'package:dragonballwiki/models/planet_model.dart';
 
 class PlanetCard extends StatelessWidget {
   final Planet planeta;

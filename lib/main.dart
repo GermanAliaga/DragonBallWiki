@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:maqueta_3/providers/preferences_provider.dart';
-import 'package:maqueta_3/widgets/myfooter.dart';
+import 'package:dragonballwiki/providers/preferences_provider.dart';
+import 'package:dragonballwiki/widgets/myfooter.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
     final appData = context.watch<AppData>();
 
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'DragonBallWiki',
       theme: appData.lightTheme,
       darkTheme: appData.darkTheme,
       themeMode: appData.themeDark ? ThemeMode.dark : ThemeMode.light,

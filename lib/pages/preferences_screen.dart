@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
-import 'package:maqueta_3/providers/preferences_provider.dart';
-import 'package:maqueta_3/widgets/myfooter.dart';
+import 'package:dragonballwiki/providers/preferences_provider.dart';
+import 'package:dragonballwiki/widgets/myfooter.dart';
 import 'package:provider/provider.dart';
 
 class PreferencePage extends StatefulWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:maqueta_3/models/character_model.dart';
-import 'package:maqueta_3/widgets/character_card.dart';
+import 'package:dragonballwiki/models/character_model.dart';
+import 'package:dragonballwiki/widgets/character_card.dart';
 
 class CharacterDetailScreen extends StatelessWidget {
   final Character character;

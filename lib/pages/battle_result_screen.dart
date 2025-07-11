@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:maqueta_3/models/character_model.dart';
-import 'package:maqueta_3/models/battle_result_model.dart';
+import 'package:dragonballwiki/models/character_model.dart';
+import 'package:dragonballwiki/models/battle_result_model.dart';
 
 class BattleResultScreen extends StatefulWidget {
   final Character character1;

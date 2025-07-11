@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import "package:maqueta_3/theme/color_scheme.dart";
+import "package:dragonballwiki/theme/color_scheme.dart";
 
 class MaterialTheme {
   final TextTheme textTheme;
