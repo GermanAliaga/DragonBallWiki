@@ -51,7 +51,9 @@ class _DuelScreenState extends State<DuelScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Duelo de Personajes')),
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: const Text('Duelo de Personajes')),
       bottomNavigationBar: MyFooter(),
       body: characters.isEmpty
           ? const Center(child: CircularProgressIndicator())
