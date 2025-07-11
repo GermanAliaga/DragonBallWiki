@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:maqueta_3/pages/character_list_screen.dart';
 import 'package:maqueta_3/pages/planet_list_screen.dart';
+import 'package:maqueta_3/pages/preferences_screen.dart';
 
 class MyFooter extends StatefulWidget {
   const MyFooter({
@@ -13,7 +14,7 @@ class MyFooter extends StatefulWidget {
 
 class _MyFooterState extends State<MyFooter> {
   int currentPageIndex = 0;
-  List<Widget> navegacion = [CharacterListScreen(), PlanetListScreen()];
+  List<Widget> navegacion = [CharacterListScreen(), PlanetListScreen(), PreferencePage()];
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,6 @@ class _MyFooterState extends State<MyFooter> {
                 MaterialPageRoute(builder: (context) => navegacion[index]));
           });
         },
-        indicatorColor: Colors.orange,
         destinations: const <Widget>[
           NavigationDestination(
             icon: Icon(Icons.person),

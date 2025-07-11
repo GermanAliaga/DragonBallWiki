@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:maqueta_3/models/planet_model.dart';
 import 'package:maqueta_3/pages/planet_detail_screen.dart';
 import 'package:maqueta_3/services/api_service.dart';
-import 'package:maqueta_3/widgets/mydrawer.dart';
 import 'package:maqueta_3/widgets/myfooter.dart';
 
 
@@ -26,6 +25,7 @@ class _PlanetListScreenState extends State<PlanetListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text('Planetas de Dragon Ball Z'),
         leading: null,
       ),

@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:maqueta_3/theme/color_scheme.dart";
 
 class MaterialTheme {
   final TextTheme textTheme;
@@ -34,7 +35,7 @@ class MaterialTheme {
       scrim: Color(0xff000000),
       inverseSurface: Color(0xff352f2c),
       inversePrimary: Color(0xffffb875),
-      primaryFixed: Color(0xffffdcc0),
+      primaryFixed: Color.fromARGB(255, 197, 255, 192),
       onPrimaryFixed: Color(0xff2d1600),
       primaryFixedDim: Color(0xffffb875),
       onPrimaryFixedVariant: Color(0xff6b3b00),
@@ -129,39 +130,4 @@ class MaterialTheme {
 
   List<ExtendedColor> get extendedColors => [
   ];
-}
-
-class ExtendedColor {
-  final Color seed, value;
-  final ColorFamily light;
-  final ColorFamily lightHighContrast;
-  final ColorFamily lightMediumContrast;
-  final ColorFamily dark;
-  final ColorFamily darkHighContrast;
-  final ColorFamily darkMediumContrast;
-
-  const ExtendedColor({
-    required this.seed,
-    required this.value,
-    required this.light,
-    required this.lightHighContrast,
-    required this.lightMediumContrast,
-    required this.dark,
-    required this.darkHighContrast,
-    required this.darkMediumContrast,
-  });
-}
-
-class ColorFamily {
-  const ColorFamily({
-    required this.color,
-    required this.onColor,
-    required this.colorContainer,
-    required this.onColorContainer,
-  });
-
-  final Color color;
-  final Color onColor;
-  final Color colorContainer;
-  final Color onColorContainer;
 }
