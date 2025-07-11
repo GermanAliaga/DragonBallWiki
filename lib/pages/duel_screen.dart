@@ -54,7 +54,7 @@ class _DuelScreenState extends State<DuelScreen> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text('Duelo de Personajes')),
-      bottomNavigationBar: MyFooter(),
+      //bottomNavigationBar: MyFooter(),
       body: characters.isEmpty
           ? const Center(child: CircularProgressIndicator())
           : Padding(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:maqueta_3/pages/character_list_screen.dart';
 import 'package:maqueta_3/providers/preferences_provider.dart';
+import 'package:maqueta_3/widgets/myfooter.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       darkTheme: appData.darkTheme,
       themeMode: appData.themeDark ? ThemeMode.dark : ThemeMode.light,
       debugShowCheckedModeBanner: false,
-      home: CharacterListScreen(),
+      home: MyFooter(),
     );
   }
 }

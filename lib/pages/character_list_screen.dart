@@ -30,7 +30,7 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
         title: const Text('Personajes de Dragon Ball Z'),
         leading: null,
       ),
-      bottomNavigationBar: MyFooter(),
+      //bottomNavigationBar: MyFooter(),
       body: FutureBuilder<List<Character>>(
         future: _futureCharacters,
         builder: (context, snapshot) {

@@ -126,7 +126,7 @@ class _TournamentScreenState extends State<TournamentScreen> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text('Torneo - Modo Arcade')),
-      bottomNavigationBar: MyFooter(),
+      //bottomNavigationBar: MyFooter(),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(

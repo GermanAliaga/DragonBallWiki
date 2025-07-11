@@ -23,7 +23,7 @@ class _PreferencePageState extends State<PreferencePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text('Configuraciones'),
       ),
-      bottomNavigationBar: MyFooter(),
+      //bottomNavigationBar: MyFooter(),
       body: Center(
         child: Column(
           children: [

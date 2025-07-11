@@ -13,8 +13,7 @@ class MyFooter extends StatefulWidget {
 }
 
 class _MyFooterState extends State<MyFooter> {
-  int currentPageIndex = 0;
-
+  
   final List<Widget> navegacion = [
     CharacterListScreen(),
     PlanetListScreen(),
@@ -22,20 +21,23 @@ class _MyFooterState extends State<MyFooter> {
     DuelScreen(),
     TournamentScreen(),
   ];
+  
+  int indexSelected = 0;
 
   @override
   Widget build(BuildContext context) {
-    return NavigationBar(
+
+    return Scaffold(
+      bottomNavigationBar: 
+     NavigationBar(
       onDestinationSelected: (int index) {
         setState(() {
-          Navigator.pop(context);
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => navegacion[index]),
-          );
+          indexSelected = index;
+    
         });
       },
-      destinations: const <NavigationDestination>[
+      selectedIndex: indexSelected,
+      destinations: const <NavigationDestination>[        
         NavigationDestination(
           icon: Icon(Icons.person),
           label: 'Personajes',
@@ -57,6 +59,7 @@ class _MyFooterState extends State<MyFooter> {
           label: 'Torneo',
         ),
       ],
-    );
+    ),
+    body: navegacion[indexSelected],);
   }
 }

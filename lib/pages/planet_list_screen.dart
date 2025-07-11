@@ -29,7 +29,7 @@ class _PlanetListScreenState extends State<PlanetListScreen> {
         title: const Text('Planetas de Dragon Ball Z'),
         leading: null,
       ),
-      bottomNavigationBar: MyFooter(),
+      //bottomNavigationBar: MyFooter(),
       body: FutureBuilder<List<Planet>>(
         future: _futurePlanets,
         builder: (context, snapshot) {
