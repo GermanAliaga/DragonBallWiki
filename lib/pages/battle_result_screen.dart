@@ -83,8 +83,7 @@ class _BattleResultScreenState extends State<BattleResultScreen> {
                         ),
                       ),
                       const SizedBox(height: 20),
-
-                      if (widget.isArcadeMode)
+                      if (widget.isArcadeMode || !widget.isArcadeMode)
                         ElevatedButton(
                           onPressed: () async {
                             // Restaurar orientación vertical antes de salir
