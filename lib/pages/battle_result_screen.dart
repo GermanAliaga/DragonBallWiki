@@ -43,42 +43,61 @@ class _BattleResultScreenState extends State<BattleResultScreen> {
   @override
   Widget build(BuildContext context) {
     String bck_image = 'assets/images/torneo.png';
+
     return Scaffold(
-      body: SafeArea(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  body: Stack(
+    children: <Widget>[
+      // Fondo
+      Positioned.fill(
+        child: Image.asset(
+          bck_image,
+          fit: BoxFit.cover,
+        ),
+      ),
+
+      SingleChildScrollView(
+        child: Column(
           children: [
-            _buildFighter(widget.character1),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+            const SizedBox(height: 100),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                const Text(
-                  'VS',
-                  style: TextStyle(
-                    fontSize: 48,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.redAccent,
-                  ),
+                _buildFighter(widget.character1),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'VS',
+                      style: TextStyle(
+                        fontSize: 48,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.redAccent,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    const Text(
+                      'Ganador:',
+                      style: TextStyle(fontSize: 18, color: Colors.white),
+                    ),
+                    Text(
+                      widget.result.winner,
+                      style: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.greenAccent,
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 20),
-                Text(
-                  'Ganador:',
-                  style: TextStyle(fontSize: 18, color: Colors.white),
-                ),
-                Text(
-                  widget.result.winner,
-                  style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.greenAccent),
-                ),
+                _buildFighter(widget.character2),
               ],
             ),
-            _buildFighter(widget.character2),
           ],
         ),
       ),
-    );
+    ],
+  ),
+);
   }
 
   Widget _buildFighter(Character c) {

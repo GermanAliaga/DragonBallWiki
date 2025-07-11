@@ -3,6 +3,7 @@ import 'package:maqueta_3/models/character_model.dart';
 import 'package:maqueta_3/models/battle_result_model.dart';
 import 'package:maqueta_3/pages/battle_result_screen.dart';
 import 'package:maqueta_3/services/api_service.dart';
+import 'package:maqueta_3/widgets/myfooter.dart';
 
 class DuelScreen extends StatefulWidget {
   const DuelScreen({super.key});
@@ -51,6 +52,7 @@ class _DuelScreenState extends State<DuelScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Duelo de Personajes')),
+      bottomNavigationBar: MyFooter(),
       body: characters.isEmpty
           ? const Center(child: CircularProgressIndicator())
           : Padding(
