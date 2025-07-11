@@ -3,6 +3,7 @@ import 'package:maqueta_3/pages/character_list_screen.dart';
 import 'package:maqueta_3/pages/planet_list_screen.dart';
 import 'package:maqueta_3/pages/preferences_screen.dart';
 import 'package:maqueta_3/pages/duel_screen.dart';
+import 'package:maqueta_3/pages/tournament_screen.dart';
 
 class MyFooter extends StatefulWidget {
   const MyFooter({super.key});
@@ -14,11 +15,12 @@ class MyFooter extends StatefulWidget {
 class _MyFooterState extends State<MyFooter> {
   int currentPageIndex = 0;
 
-  List<Widget> navegacion = [
+  final List<Widget> navegacion = [
     CharacterListScreen(),
     PlanetListScreen(),
     PreferencePage(),
     DuelScreen(),
+    TournamentScreen(),
   ];
 
   @override
@@ -39,7 +41,7 @@ class _MyFooterState extends State<MyFooter> {
           label: 'Personajes',
         ),
         NavigationDestination(
-          icon: Icon(Icons.circle),
+          icon: Icon(Icons.public),
           label: 'Planetas',
         ),
         NavigationDestination(
@@ -49,6 +51,10 @@ class _MyFooterState extends State<MyFooter> {
         NavigationDestination(
           icon: Icon(Icons.sports_martial_arts),
           label: 'Duelo',
+        ),
+        NavigationDestination(
+          icon: Icon(Icons.emoji_events),
+          label: 'Torneo',
         ),
       ],
     );

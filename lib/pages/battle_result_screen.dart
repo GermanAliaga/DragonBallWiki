@@ -7,12 +7,14 @@ class BattleResultScreen extends StatefulWidget {
   final Character character1;
   final Character character2;
   final BattleResult result;
+  final bool isArcadeMode;
 
   const BattleResultScreen({
     super.key,
     required this.character1,
     required this.character2,
     required this.result,
+    this.isArcadeMode = false,
   });
 
   @override
@@ -23,7 +25,6 @@ class _BattleResultScreenState extends State<BattleResultScreen> {
   @override
   void initState() {
     super.initState();
-    // Forzamos orientación horizontal al entrar
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeLeft,
       DeviceOrientation.landscapeRight,
@@ -32,11 +33,12 @@ class _BattleResultScreenState extends State<BattleResultScreen> {
 
   @override
   void dispose() {
-    // Restauramos orientación vertical al salir
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
+    if (!widget.isArcadeMode) {
+      SystemChrome.setPreferredOrientations([
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+      ]);
+    }
     super.dispose();
   }
 
@@ -45,59 +47,71 @@ class _BattleResultScreenState extends State<BattleResultScreen> {
     String bck_image = 'assets/images/torneo.png';
 
     return Scaffold(
-  body: Stack(
-    children: <Widget>[
-      // Fondo
-      Positioned.fill(
-        child: Image.asset(
-          bck_image,
-          fit: BoxFit.cover,
-        ),
-      ),
+      body: Stack(
+        children: <Widget>[
+          Positioned.fill(
+            child: Image.asset(bck_image, fit: BoxFit.cover),
+          ),
+          Column(
+            children: [
+              const SizedBox(height: 100),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _buildFighter(widget.character1),
+                  Column(
+                    children: [
+                      const Text(
+                        'VS',
+                        style: TextStyle(
+                          fontSize: 48,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.redAccent,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      const Text(
+                        'Ganador:',
+                        style: TextStyle(fontSize: 18, color: Colors.white),
+                      ),
+                      Text(
+                        widget.result.winner,
+                        style: const TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.greenAccent,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
 
-      SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(height: 100),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _buildFighter(widget.character1),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'VS',
-                      style: TextStyle(
-                        fontSize: 48,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.redAccent,
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    const Text(
-                      'Ganador:',
-                      style: TextStyle(fontSize: 18, color: Colors.white),
-                    ),
-                    Text(
-                      widget.result.winner,
-                      style: const TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.greenAccent,
-                      ),
-                    ),
-                  ],
-                ),
-                _buildFighter(widget.character2),
-              ],
-            ),
-          ],
-        ),
+                      if (widget.isArcadeMode)
+                        ElevatedButton(
+                          onPressed: () async {
+                            // Restaurar orientación vertical antes de salir
+                            await SystemChrome.setPreferredOrientations([
+                              DeviceOrientation.portraitUp,
+                              DeviceOrientation.portraitDown,
+                            ]);
+
+                            Navigator.pop(
+                              context,
+                              widget.result.winner == widget.character1.name,
+                            );
+                          },
+                          child: Text(widget.result.winner == widget.character1.name
+                              ? 'Siguiente batalla'
+                              : 'Volver'),
+                        ),
+                    ],
+                  ),
+                  _buildFighter(widget.character2),
+                ],
+              ),
+            ],
+          ),
+        ],
       ),
-    ],
-  ),
-);
+    );
   }
 
   Widget _buildFighter(Character c) {
@@ -108,7 +122,7 @@ class _BattleResultScreenState extends State<BattleResultScreen> {
         const SizedBox(height: 10),
         Text(
           c.name,
-          style: TextStyle(fontSize: 16, color: Colors.white),
+          style: const TextStyle(fontSize: 16, color: Colors.white),
         ),
       ],
     );
