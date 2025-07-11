@@ -1,3 +1,4 @@
+import 'package:dragonballwiki/pages/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:dragonballwiki/providers/preferences_provider.dart';
 import 'package:dragonballwiki/widgets/myfooter.dart';
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
       darkTheme: appData.darkTheme,
       themeMode: appData.themeDark ? ThemeMode.dark : ThemeMode.light,
       debugShowCheckedModeBanner: false,
-      home: MyFooter(),
+      home: SplashScreen(),
     );
   }
 }
