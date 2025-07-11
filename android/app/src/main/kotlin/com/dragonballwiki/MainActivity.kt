@@ -1,4 +1,4 @@
-package com.example.maqueta_3
+package com.dragonballwiki
 
 import io.flutter.embedding.android.FlutterActivity
 

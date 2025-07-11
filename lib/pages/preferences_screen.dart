@@ -30,7 +30,7 @@ class _PreferencePageState extends State<PreferencePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                const Text('Modo Oscuro'),
+                const Text('Modo Vegeta'),
                 Switch(
                   value: appData.themeDark,
                   onChanged: (value) {
