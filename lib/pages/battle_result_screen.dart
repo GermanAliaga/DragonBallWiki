@@ -83,25 +83,37 @@ class _BattleResultScreenState extends State<BattleResultScreen> {
                         ),
                       ),
                       const SizedBox(height: 20),
-                      if (widget.isArcadeMode || !widget.isArcadeMode)
-                        ElevatedButton(
-                          onPressed: () async {
-                            // Restaurar orientación vertical antes de salir
-                            await SystemChrome.setPreferredOrientations([
-                              DeviceOrientation.portraitUp,
-                              DeviceOrientation.portraitDown,
-                            ]);
+                          if (widget.isArcadeMode)
+                            ElevatedButton(
+                              onPressed: () async {
+                                await SystemChrome.setPreferredOrientations([
+                                  DeviceOrientation.portraitUp,
+                                  DeviceOrientation.portraitDown,
+                                ]);
 
-                            Navigator.pop(
-                              context,
-                              widget.result.winner == widget.character1.name,
-                            );
-                          },
-                          child: Text(widget.result.winner == widget.character1.name
-                              ? 'Siguiente batalla'
-                              : 'Volver'),
-                        ),
-                    ],
+                                Navigator.pop(
+                                  context,
+                                  widget.result.winner == widget.character1.name,
+                                );
+                              },
+                              child: Text(
+                                widget.result.winner == widget.character1.name
+                                    ? 'Siguiente batalla'
+                                    : 'Volver',
+                              ),
+                            )
+                          else
+                            ElevatedButton(
+                              onPressed: () async {
+                                await SystemChrome.setPreferredOrientations([
+                                  DeviceOrientation.portraitUp,
+                                  DeviceOrientation.portraitDown,
+                                ]);
+                                Navigator.pop(context);
+                              },
+                              child: Text('Volver'),
+                            ),
+                        ],
                   ),
                   _buildFighter(widget.character2),
                 ],
