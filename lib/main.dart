@@ -1,7 +1,6 @@
 import 'package:dragonballwiki/pages/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:dragonballwiki/providers/preferences_provider.dart';
-import 'package:dragonballwiki/widgets/myfooter.dart';
 import 'package:provider/provider.dart';
 
 void main() {
