@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'dart:io';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:http/http.dart' as http;
 import 'package:dragonballwiki/models/character_model.dart';
 import 'package:dragonballwiki/models/planet_model.dart';
@@ -7,7 +9,27 @@ import 'package:dragonballwiki/models/planet_model.dart';
 class ApiService {
   static const String _baseUrl = 'https://dragonball-api.com/api';
 
+
+  Future<bool> hasInternetConnection() async {
+    final connectivityResult = await Connectivity().checkConnectivity();
+
+    if (connectivityResult == ConnectivityResult.none) {
+      return false; // No hay ninguna red
+    }
+
+    try {
+      final result = await InternetAddress.lookup('google.com');
+      return result.isNotEmpty && result[0].rawAddress.isNotEmpty;
+    } on SocketException {
+      return false; // Tiene red pero sin acceso real a Internet
+    }
+  }
+
   Future<Character> fetchCharacterById(int id) async {
+    if (!await hasInternetConnection()) {
+      throw Exception('Sin conexión a Internet');
+    }
+
     final response = await http.get(Uri.parse('$_baseUrl/characters/$id'));
 
     if (response.statusCode == 200) {
@@ -19,6 +41,10 @@ class ApiService {
   }
 
   Future<Planet> fetchPlanetById(int id) async {
+    if (!await hasInternetConnection()) {
+      throw Exception('Sin conexión a Internet');
+    }
+
     final response = await http.get(Uri.parse('$_baseUrl/planets/$id'));
 
     if(response.statusCode == 200) {
@@ -34,7 +60,12 @@ class ApiService {
     int totalPages = 1;
     List<Character> allCharacters = [];
 
+    if (!await hasInternetConnection()) {
+      throw Exception('Sin conexión a Internet');
+    }
+
     while (currentPage <= totalPages) {
+
       final response = await http.get(Uri.parse('https://dragonball-api.com/api/characters?page=$currentPage&limit=20'));
 
       if (response.statusCode == 200) {
@@ -61,7 +92,11 @@ class ApiService {
     int totalPages = 1;
     List<Planet> allPlanets = [];
 
-    while (currentPage <= totalPages) {
+    while (currentPage <= totalPages) {      
+      if (!await hasInternetConnection()) {
+        throw Exception('Sin conexión a Internet');
+      }
+
       final response = await http.get(Uri.parse('https://dragonball-api.com/api/planets?page=$currentPage&limit=2'));
 
       if (response.statusCode == 200) {

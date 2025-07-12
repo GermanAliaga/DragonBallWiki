@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:dragonballwiki/models/planet_model.dart';
 import 'package:dragonballwiki/pages/planet_detail_screen.dart';
 import 'package:dragonballwiki/services/api_service.dart';
-import 'package:dragonballwiki/widgets/myfooter.dart';
 
 
 class PlanetListScreen extends StatefulWidget {
@@ -29,7 +28,6 @@ class _PlanetListScreenState extends State<PlanetListScreen> {
         title: const Text('Planetas de Dragon Ball Z'),
         leading: null,
       ),
-      //bottomNavigationBar: MyFooter(),
       body: FutureBuilder<List<Planet>>(
         future: _futurePlanets,
         builder: (context, snapshot) {

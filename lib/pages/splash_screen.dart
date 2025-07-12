@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:dragonballwiki/pages/no_connection_screen.dart';
 import 'package:dragonballwiki/widgets/myfooter.dart';
 import 'package:flutter/material.dart';
 

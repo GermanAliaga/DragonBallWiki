@@ -4,7 +4,6 @@ import 'package:dragonballwiki/pages/planet_list_screen.dart';
 import 'package:dragonballwiki/pages/preferences_screen.dart';
 import 'package:dragonballwiki/pages/duel_screen.dart';
 import 'package:dragonballwiki/pages/tournament_screen.dart';
-
 class MyFooter extends StatefulWidget {
   const MyFooter({super.key});
 
