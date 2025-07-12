@@ -6,7 +6,6 @@ import 'package:dragonballwiki/models/battle_result_model.dart';
 import 'package:dragonballwiki/pages/battle_result_screen.dart';
 import 'package:dragonballwiki/services/api_service.dart';
 
-
 class TournamentScreen extends StatefulWidget {
   const TournamentScreen({super.key});
 
@@ -19,6 +18,7 @@ class _TournamentScreenState extends State<TournamentScreen> {
   Character? player;
   int round = 0;
   bool isLoading = true;
+  String? errorMessage;
 
   @override
   void initState() {
@@ -27,12 +27,24 @@ class _TournamentScreenState extends State<TournamentScreen> {
   }
 
   Future<void> loadCharacters() async {
-    final all = await ApiService().fetchAllCharacters();
-    all.shuffle(); // Para que sean aleatorios
     setState(() {
-      characters = all.take(8).toList(); // 1 jugador + 7 rivales
-      isLoading = false;
+      isLoading = true;
+      errorMessage = null;
     });
+
+    try {
+      final all = await ApiService().fetchAllCharacters();
+      all.shuffle(); // Para aleatoriedad
+      setState(() {
+        characters = all.take(8).toList(); // 1 jugador + 7 rivales
+        isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        isLoading = false;
+        errorMessage = 'No se pudo cargar la lista de personajes.';
+      });
+    }
   }
 
   Future<void> startTournament() async {
@@ -54,7 +66,7 @@ class _TournamentScreenState extends State<TournamentScreen> {
             isArcadeMode: true,
           ),
         ),
-      ) ?? false; 
+      ) ?? false;
 
       if (!won) {
         showGameOver();
@@ -68,7 +80,6 @@ class _TournamentScreenState extends State<TournamentScreen> {
   }
 
   void showGameOver() async {
-    // Restaurar orientación vertical
     await SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
@@ -89,9 +100,7 @@ class _TournamentScreenState extends State<TournamentScreen> {
     );
   }
 
-
   void showWinner() async {
-    // Restaurar orientación vertical
     await SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
@@ -112,45 +121,60 @@ class _TournamentScreenState extends State<TournamentScreen> {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
-    if (isLoading) {
-      return const Scaffold(
-        body: Center(child: CircularProgressIndicator()),
-      );
-    }
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Torneo - Modo Arcade')),
-      //bottomNavigationBar: MyFooter(),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            const Text('Selecciona tu personaje'),
-            DropdownButton<Character>(
-              value: player,
-              hint: const Text('Tu personaje'),
-              isExpanded: true,
-              items: characters.map((c) {
-                return DropdownMenuItem(
-                  value: c,
-                  child: Text(c.name),
-                );
-              }).toList(),
-              onChanged: (value) => setState(() => player = value),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: player != null ? startTournament : null,
-              child: const Text('Comenzar torneo'),
-            ),
-          ],
-        ),
+        title: const Text('Torneo - Modo Arcade'),
       ),
+      body: isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : errorMessage != null
+              ? Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(Icons.wifi_off, size: 60, color: Colors.red),
+                      const SizedBox(height: 12),
+                      Text(
+                        'Sin conexión a Internet.\n$errorMessage',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                      const SizedBox(height: 16),
+                      ElevatedButton(
+                        onPressed: loadCharacters,
+                        child: const Text('Reintentar'),
+                      ),
+                    ],
+                  ),
+                )
+              : Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    children: [
+                      const Text('Selecciona tu personaje'),
+                      DropdownButton<Character>(
+                        value: player,
+                        hint: const Text('Tu personaje'),
+                        isExpanded: true,
+                        items: characters.map((c) {
+                          return DropdownMenuItem(
+                            value: c,
+                            child: Text(c.name),
+                          );
+                        }).toList(),
+                        onChanged: (value) => setState(() => player = value),
+                      ),
+                      const SizedBox(height: 20),
+                      ElevatedButton(
+                        onPressed: player != null ? startTournament : null,
+                        child: const Text('Comenzar torneo'),
+                      ),
+                    ],
+                  ),
+                ),
     );
   }
 }

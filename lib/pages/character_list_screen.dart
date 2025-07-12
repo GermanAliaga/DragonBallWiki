@@ -13,28 +13,43 @@ class CharacterListScreen extends StatefulWidget {
 }
 
 class _CharacterListScreenState extends State<CharacterListScreen> {
-  late Future<List<Character>> _futureCharacters;
   List<Character> allCharacters = [];
   List<Character> filteredCharacters = [];
 
   String? selectedRace;
   String? selectedAffiliation;
   String? selectedGender;
-  String? selectedPlanet;
-
-  bool showFilters = false;
   bool onlyFavorites = false;
+  bool showFilters = false;
+
+  bool _isLoading = true;
+  String? _errorMessage;
 
   @override
   void initState() {
     super.initState();
-    _futureCharacters = ApiService().fetchAllCharacters();
-    _futureCharacters.then((characters) {
+    _loadCharacters();
+  }
+
+  Future<void> _loadCharacters() async {
+    setState(() {
+      _isLoading = true;
+      _errorMessage = null;
+    });
+
+    try {
+      final characters = await ApiService().fetchAllCharacters();
       setState(() {
         allCharacters = characters;
         filteredCharacters = characters;
+        _isLoading = false;
       });
-    });
+    } catch (e) {
+      setState(() {
+        _isLoading = false;
+        _errorMessage = e.toString();
+      });
+    }
   }
 
   void applyFilters() {
@@ -68,51 +83,71 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
           ),
         ],
       ),
-      body: allCharacters.isEmpty
+      body: _isLoading
           ? const Center(child: CircularProgressIndicator())
-          : Column(
-              children: [
-                if (showFilters) buildFilters(),
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: filteredCharacters.length,
-                    itemBuilder: (context, index) {
-                      final character = filteredCharacters[index];
-                      return Card(
-                        elevation: 4,
-                        margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                        child: ListTile(
-                          leading: CircleAvatar(
-                            backgroundImage: NetworkImage(character.image),
-                          ),
-                          title: Text(character.name),
-                          subtitle: Text(character.race),
-                          trailing: IconButton(
-                            icon: Icon(
-                              context.watch<FavoritesProvider>().isFavorite(character.id)
-                                  ? Icons.favorite
-                                  : Icons.favorite_border,
-                              color: Colors.red,
-                            ),
-                            onPressed: () {
-                              context.read<FavoritesProvider>().toggleFavorite(character.id);
-                            },
-                          ),
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => CharacterDetailScreen(character: character),
-                              ),
-                            );
-                          },
-                        ),
-                      );
-                    },
+          : _errorMessage != null
+              ? Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(Icons.wifi_off, size: 60, color: Colors.red),
+                      const SizedBox(height: 12),
+                      Text(
+                        'Sin conexión a Internet.\n$_errorMessage',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                      const SizedBox(height: 16),
+                      ElevatedButton(
+                        onPressed: _loadCharacters,
+                        child: const Text('Reintentar'),
+                      ),
+                    ],
                   ),
+                )
+              : Column(
+                  children: [
+                    if (showFilters) buildFilters(),
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: filteredCharacters.length,
+                        itemBuilder: (context, index) {
+                          final character = filteredCharacters[index];
+                          return Card(
+                            elevation: 4,
+                            margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                            child: ListTile(
+                              leading: CircleAvatar(
+                                backgroundImage: NetworkImage(character.image),
+                              ),
+                              title: Text(character.name),
+                              subtitle: Text(character.race),
+                              trailing: IconButton(
+                                icon: Icon(
+                                  context.watch<FavoritesProvider>().isFavorite(character.id)
+                                      ? Icons.favorite
+                                      : Icons.favorite_border,
+                                  color: Colors.red,
+                                ),
+                                onPressed: () {
+                                  context.read<FavoritesProvider>().toggleFavorite(character.id);
+                                },
+                              ),
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => CharacterDetailScreen(character: character),
+                                  ),
+                                );
+                              },
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
     );
   }
 

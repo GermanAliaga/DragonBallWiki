@@ -5,23 +5,21 @@ import 'package:http/http.dart' as http;
 import 'package:dragonballwiki/models/character_model.dart';
 import 'package:dragonballwiki/models/planet_model.dart';
 
-
 class ApiService {
   static const String _baseUrl = 'https://dragonball-api.com/api';
-
 
   Future<bool> hasInternetConnection() async {
     final connectivityResult = await Connectivity().checkConnectivity();
 
     if (connectivityResult == ConnectivityResult.none) {
-      return false; // No hay ninguna red
+      return false;
     }
 
     try {
-      final result = await InternetAddress.lookup('google.com');
+      final result = await InternetAddress.lookup('example.com');
       return result.isNotEmpty && result[0].rawAddress.isNotEmpty;
     } on SocketException {
-      return false; // Tiene red pero sin acceso real a Internet
+      return false;
     }
   }
 
@@ -47,32 +45,31 @@ class ApiService {
 
     final response = await http.get(Uri.parse('$_baseUrl/planets/$id'));
 
-    if(response.statusCode == 200) {
+    if (response.statusCode == 200) {
       final jsonData = jsonDecode(response.body);
       return Planet.fromJson(jsonData);
     } else {
-      throw Exception('Error al obtener planeta con ID: $id');
+      throw Exception('Error al obtener planeta con ID $id');
     }
   }
 
   Future<List<Character>> fetchAllCharacters() async {
-    int currentPage = 1;
-    int totalPages = 1;
-    List<Character> allCharacters = [];
-
     if (!await hasInternetConnection()) {
       throw Exception('Sin conexión a Internet');
     }
 
-    while (currentPage <= totalPages) {
+    int currentPage = 1;
+    int totalPages = 1;
+    List<Character> allCharacters = [];
 
-      final response = await http.get(Uri.parse('https://dragonball-api.com/api/characters?page=$currentPage&limit=20'));
+    while (currentPage <= totalPages) {
+      final response = await http.get(Uri.parse('$_baseUrl/characters?page=$currentPage&limit=20'));
 
       if (response.statusCode == 200) {
         final jsonData = jsonDecode(response.body);
         final items = jsonData['items'] as List;
-
         final charactersPage = items.map((e) => Character.fromJson(e)).toList();
+
         allCharacters.addAll(charactersPage);
 
         if (currentPage == 1) {
@@ -81,30 +78,31 @@ class ApiService {
 
         currentPage++;
       } else {
-        throw Exception('Fallo al obtener los personajes en la página $currentPage');
+        throw Exception('Error al obtener personajes en la página $currentPage');
       }
     }
+
     return allCharacters;
   }
 
   Future<List<Planet>> fetchAllPlanets() async {
+    if (!await hasInternetConnection()) {
+      throw Exception('Sin conexión a Internet');
+    }
+
     int currentPage = 1;
     int totalPages = 1;
     List<Planet> allPlanets = [];
 
-    while (currentPage <= totalPages) {      
-      if (!await hasInternetConnection()) {
-        throw Exception('Sin conexión a Internet');
-      }
-
-      final response = await http.get(Uri.parse('https://dragonball-api.com/api/planets?page=$currentPage&limit=2'));
+    while (currentPage <= totalPages) {
+      final response = await http.get(Uri.parse('$_baseUrl/planets?page=$currentPage&limit=20'));
 
       if (response.statusCode == 200) {
         final jsonData = jsonDecode(response.body);
         final items = jsonData['items'] as List;
+        final planetsPage = items.map((e) => Planet.fromJson(e)).toList();
 
-        final planetPage = items.map((e) => Planet.fromJson(e)).toList();
-        allPlanets.addAll(planetPage);
+        allPlanets.addAll(planetsPage);
 
         if (currentPage == 1) {
           totalPages = jsonData['meta']['totalPages'];
@@ -112,9 +110,10 @@ class ApiService {
 
         currentPage++;
       } else {
-        throw Exception('Fallo al obtener los planetas en la página $currentPage');
+        throw Exception('Error al obtener planetas en la página $currentPage');
       }
     }
+
     return allPlanets;
   }
 }

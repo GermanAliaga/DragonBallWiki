@@ -17,6 +17,9 @@ class _DuelScreenState extends State<DuelScreen> {
   Character? selected2;
   BattleResult? result;
 
+  bool isLoading = true;
+  String? errorMessage;
+
   @override
   void initState() {
     super.initState();
@@ -24,10 +27,23 @@ class _DuelScreenState extends State<DuelScreen> {
   }
 
   Future<void> loadCharacters() async {
-    final all = await ApiService().fetchAllCharacters();
     setState(() {
-      characters = all;
+      isLoading = true;
+      errorMessage = null;
     });
+
+    try {
+      final all = await ApiService().fetchAllCharacters();
+      setState(() {
+        characters = all;
+        isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        isLoading = false;
+        errorMessage = 'No se pudo cargar la lista de personajes.';
+      });
+    }
   }
 
   void simulate() {
@@ -46,65 +62,84 @@ class _DuelScreenState extends State<DuelScreen> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Duelo de Personajes')),
-      //bottomNavigationBar: MyFooter(),
-      body: characters.isEmpty
+        title: const Text('Duelo de Personajes'),
+      ),
+      body: isLoading
           ? const Center(child: CircularProgressIndicator())
-          : Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                children: [
-                  DropdownButton<Character>(
-                    hint: const Text('Selecciona luchador 1'),
-                    value: selected1,
-                    isExpanded: true,
-                    items: characters.map((c) {
-                      return DropdownMenuItem(
-                        value: c,
-                        child: Text(c.name),
-                      );
-                    }).toList(),
-                    onChanged: (value) => setState(() => selected1 = value),
+          : errorMessage != null
+              ? Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(Icons.wifi_off, size: 60, color: Colors.red),
+                      const SizedBox(height: 12),
+                      Text(
+                        'Sin conexión a Internet.\n$errorMessage',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                      const SizedBox(height: 16),
+                      ElevatedButton(
+                        onPressed: loadCharacters,
+                        child: const Text('Reintentar'),
+                      ),
+                    ],
                   ),
-                  DropdownButton<Character>(
-                    hint: const Text('Selecciona luchador 2'),
-                    value: selected2,
-                    isExpanded: true,
-                    items: characters.map((c) {
-                      return DropdownMenuItem(
-                        value: c,
-                        child: Text(c.name),
-                      );
-                    }).toList(),
-                    onChanged: (value) => setState(() => selected2 = value),
-                  ),
-                  const SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: simulate,
-                    child: const Text('¡Simular duelo!'),
-                  ),
-                  const SizedBox(height: 20),
-                  if (result != null)
-                    Column(
-                      children: [
-                        Text(
-                          result!.summary,
-                          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.center,
+                )
+              : Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    children: [
+                      DropdownButton<Character>(
+                        hint: const Text('Selecciona luchador 1'),
+                        value: selected1,
+                        isExpanded: true,
+                        items: characters.map((c) {
+                          return DropdownMenuItem(
+                            value: c,
+                            child: Text(c.name),
+                          );
+                        }).toList(),
+                        onChanged: (value) => setState(() => selected1 = value),
+                      ),
+                      DropdownButton<Character>(
+                        hint: const Text('Selecciona luchador 2'),
+                        value: selected2,
+                        isExpanded: true,
+                        items: characters.map((c) {
+                          return DropdownMenuItem(
+                            value: c,
+                            child: Text(c.name),
+                          );
+                        }).toList(),
+                        onChanged: (value) => setState(() => selected2 = value),
+                      ),
+                      const SizedBox(height: 20),
+                      ElevatedButton(
+                        onPressed: simulate,
+                        child: const Text('¡Simular duelo!'),
+                      ),
+                      const SizedBox(height: 20),
+                      if (result != null)
+                        Column(
+                          children: [
+                            Text(
+                              result!.summary,
+                              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(height: 10),
+                            Text('Ganador: ${result!.winner}'),
+                          ],
                         ),
-                        const SizedBox(height: 10),
-                        Text('Ganador: ${result!.winner}'),
-                      ],
-                    ),
-                ],
-              ),
-            ),
+                    ],
+                  ),
+                ),
     );
   }
 }
