@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:dragonballwiki/widgets/mydrawer.dart';
 
 class AboutPage extends StatefulWidget {
   const AboutPage({super.key});
