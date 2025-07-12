@@ -23,6 +23,7 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
   String? selectedPlanet;
 
   bool showFilters = false;
+  bool onlyFavorites = false;
 
   @override
   void initState() {
@@ -37,13 +38,15 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
   }
 
   void applyFilters() {
+    final favoritesProvider = context.read<FavoritesProvider>();
+
     setState(() {
       filteredCharacters = allCharacters.where((character) {
         final matchRace = selectedRace == null || character.race == selectedRace;
         final matchAff = selectedAffiliation == null || character.affiliation == selectedAffiliation;
         final matchGender = selectedGender == null || character.gender == selectedGender;
-        final matchPlanet = selectedPlanet == null || character.originPlanet.name == selectedPlanet;
-        return matchRace && matchAff && matchGender && matchPlanet;
+        final matchFavorite = !onlyFavorites || favoritesProvider.isFavorite(character.id);
+        return matchRace && matchAff && matchGender && matchFavorite;
       }).toList();
     });
   }
@@ -134,10 +137,16 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
                 setState(() => selectedGender = value);
                 applyFilters();
               }),
-              buildDropdown('Planeta', selectedPlanet, extractUnique(allCharacters, (c) => c.originPlanet.name), (value) {
-                setState(() => selectedPlanet = value);
-                applyFilters();
-              }),
+              FilterChip(
+                label: const Text('Solo favoritos'),
+                selected: onlyFavorites,
+                onSelected: (selected) {
+                  setState(() {
+                    onlyFavorites = selected;
+                    applyFilters();
+                  });
+                },
+              ),
             ],
           ),
           Align(
@@ -148,7 +157,7 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
                   selectedRace = null;
                   selectedAffiliation = null;
                   selectedGender = null;
-                  selectedPlanet = null;
+                  onlyFavorites = false;
                   filteredCharacters = allCharacters;
                 });
               },
