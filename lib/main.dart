@@ -1,12 +1,16 @@
 import 'package:dragonballwiki/pages/splash_screen.dart';
+import 'package:dragonballwiki/providers/favorites_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:dragonballwiki/providers/preferences_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => AppData(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => AppData()),
+        ChangeNotifierProvider(create: (_) => FavoritesProvider()),
+      ],
       child: const MyApp(),
     ),
   );

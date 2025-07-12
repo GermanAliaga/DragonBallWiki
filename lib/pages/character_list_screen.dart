@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:dragonballwiki/models/character_model.dart';
 import 'package:dragonballwiki/pages/character_detail_screen.dart';
 import 'package:dragonballwiki/services/api_service.dart';
+import 'package:provider/provider.dart';
+import 'package:dragonballwiki/providers/favorites_provider.dart';
 
 class CharacterListScreen extends StatefulWidget {
   const CharacterListScreen({Key? key}) : super(key: key);
@@ -82,6 +84,17 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
                           ),
                           title: Text(character.name),
                           subtitle: Text(character.race),
+                          trailing: IconButton(
+                            icon: Icon(
+                              context.watch<FavoritesProvider>().isFavorite(character.id)
+                                  ? Icons.favorite
+                                  : Icons.favorite_border,
+                              color: Colors.red,
+                            ),
+                            onPressed: () {
+                              context.read<FavoritesProvider>().toggleFavorite(character.id);
+                            },
+                          ),
                           onTap: () {
                             Navigator.push(
                               context,
@@ -146,7 +159,6 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
       ),
     );
   }
-
 
   Widget buildDropdown(String label, String? value, List<String> items, ValueChanged<String?> onChanged) {
     return SizedBox(

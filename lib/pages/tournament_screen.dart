@@ -5,8 +5,7 @@ import 'package:dragonballwiki/models/character_model.dart';
 import 'package:dragonballwiki/models/battle_result_model.dart';
 import 'package:dragonballwiki/pages/battle_result_screen.dart';
 import 'package:dragonballwiki/services/api_service.dart';
-import 'package:dragonballwiki/pages/tournament_screen.dart';
-import 'package:dragonballwiki/widgets/myfooter.dart';
+
 
 class TournamentScreen extends StatefulWidget {
   const TournamentScreen({super.key});
