@@ -1,4 +1,4 @@
-
+import 'package:dragonballwiki/pages/about.dart';
 import 'package:flutter/material.dart';
 import 'package:dragonballwiki/providers/preferences_provider.dart';
 import 'package:dragonballwiki/widgets/myfooter.dart';
@@ -23,7 +23,6 @@ class _PreferencePageState extends State<PreferencePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text('Configuraciones'),
       ),
-      //bottomNavigationBar: MyFooter(),
       body: Center(
         child: Column(
           children: [
@@ -39,6 +38,9 @@ class _PreferencePageState extends State<PreferencePage> {
                 ),
               ],
             ),
+            TextButton(onPressed: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const AboutPage()));}, 
+              child: Text('Información sobre los desarrolladores'))
           ],
         ),
       )
