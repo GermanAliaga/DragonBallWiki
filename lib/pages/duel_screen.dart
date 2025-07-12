@@ -3,7 +3,6 @@ import 'package:dragonballwiki/models/character_model.dart';
 import 'package:dragonballwiki/models/battle_result_model.dart';
 import 'package:dragonballwiki/pages/battle_result_screen.dart';
 import 'package:dragonballwiki/services/api_service.dart';
-import 'package:dragonballwiki/widgets/myfooter.dart';
 
 class DuelScreen extends StatefulWidget {
   const DuelScreen({super.key});
