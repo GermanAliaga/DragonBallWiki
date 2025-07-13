@@ -38,4 +38,11 @@ class FavoritesProvider extends ChangeNotifier {
     final stringIds = _favoriteIds.map((id) => id.toString()).toList();
     await prefs.setStringList('favorites', stringIds);
   }
+  
+    Future<void> clearFavorites() async {
+    _favoriteIds.clear();
+    notifyListeners();
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('favorites');
+  }
 }
