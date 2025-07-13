@@ -37,7 +37,7 @@ Estructura de la capeta lib:\
 │   └── database_helper.dart\
 
 ## Evidencias aplicación
-
+![Evidencia](imagenes/EvidenciaAplicacion.png)
 
 ## Lista de actividades por hacer
 -Mostrar los planetas\
