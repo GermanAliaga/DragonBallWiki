@@ -22,7 +22,7 @@ class _AboutPageState extends State<AboutPage> {
           children: [
             Text('Información sobre la aplicación \n \n DragonBallWiki es una aplicación que permite \n buscar información relacionada a los diferentes \n personajes dentro del universo de Dragon Ball \n detallando cada característica de estos, como lo \n son su poder de Ki, su planeta de origen, la cantidad \n de transformaciones que tiene, una descripción, \n también una imagen como referencia.'),
             Text('Desarrolladores \n \n \n José Nicolás Migueles Marambio \n Germán Andrés Aliaga Vergara'),
-        ],
+          ],
         ),
       )
     );
