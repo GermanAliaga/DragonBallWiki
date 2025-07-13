@@ -1,4 +1,5 @@
 import 'character_model.dart';
+import 'dart:math';
 
 class BattleResult {
   final Character fighter1;
@@ -41,23 +42,35 @@ class BattleResult {
 
 
   static BigInt _parseKi(String kiStr) {
-    final normalized = kiStr.replaceAll('.', '').toLowerCase().trim();
+    final lower = kiStr.toLowerCase().trim();
 
-    if (normalized.contains('septillion')) {
-      return BigInt.from(10).pow(24); // 1e24
-    } else if (normalized.contains('quintillion')) {
-      return BigInt.from(10).pow(18); // 1e18
-    } else if (normalized.contains('quadrillion')) {
-      return BigInt.from(10).pow(15);
-    } else if (normalized.contains('trillion')) {
-      return BigInt.from(10).pow(12);
-    } else if (normalized.contains('billion')) {
-      return BigInt.from(10).pow(9);
-    } else if (normalized.contains('million')) {
-      return BigInt.from(10).pow(6);
-    } else {
-      final numeric = normalized.replaceAll(RegExp(r'[^\d]'), '');
-      return BigInt.tryParse(numeric) ?? BigInt.zero;
+    final Map<String, int> multipliers = {
+      'million': 6,
+      'billion': 9,
+      'trillion': 12,
+      'quadrillion': 15,
+      'quintillion': 18,
+      'sextillion': 21,
+      'septillion': 24,
+    };
+
+    final match = RegExp(r'([\d.,]+)\s*(\w+)').firstMatch(lower);
+    if (match != null) {
+      final numberStr = match.group(1)!.replaceAll(',', '');
+      final suffix = match.group(2)!;
+
+      final multiplier = multipliers.entries.firstWhere(
+        (e) => suffix.contains(e.key),
+        orElse: () => const MapEntry('', 0),
+      );
+
+      final doubleValue = double.tryParse(numberStr) ?? 0;
+      final value = doubleValue * pow(10, multiplier.value);
+
+      return BigInt.from(value);
     }
+
+    final numericOnly = lower.replaceAll(RegExp(r'[^\d]'), '');
+    return BigInt.tryParse(numericOnly) ?? BigInt.zero;
   }
 }
