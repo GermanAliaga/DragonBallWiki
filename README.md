@@ -53,3 +53,7 @@ Estructura de la capeta lib:\
 -Implementar Tema\
 -Mejorar el aspecto visual\
 
+## Link video
+
+https://youtu.be/qtRXV6I4dkw
+
