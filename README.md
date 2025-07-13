@@ -6,35 +6,38 @@ También permite generar simulaciones de combate entre personajes seleccionados.
 Diagrama de clases de la aplicacion.
 ![Diagrama de clases](/imagenes/diagrama_clases.png)
 Estructura de la capeta lib:\
+
 /lib\
 ├── main.dart\
 ├── models/\
+│   ├── battle_result_model.dart\
 │   ├── character_model.dart\
 │   ├── planet_model.dart\
-│   ├── transformation_model.dart\
-│   └── battle_result_model.dart\
-│   └── user.dart\
+│   └── transformation_model.dart\
 ├── services/\
-│   ├── api_service.dart\
-│   └── battle_logic.dart\
-│   └── database_helper.dart\
+│   └── api_service.dart\
 ├── pages/\
-│   ├── home_screen.dart\
-│   ├── character_list_screen.dart\
+│   ├── about.dart\
+│   ├── battle_result_screen.dart\
 │   ├── character_detail_screen.dart\
+│   ├── character_list_screen.dart\
 │   ├── duel_screen.dart\
-│   ├── tournament_screen.dart\
+│   ├── planet_detail_screen.dart\
+│   ├── planet_list_screen.dart\
 │   ├── preferences_screen.dart\
 │   ├── profile_screen.dart\
+│   ├── splash_screen.dart\
+│   └── tournament_screen.dart\
 ├── widgets/\
 │   ├── character_card.dart\
 │   ├── planet_card.dart\
-│   └── transformation_card.dart\
-│   └── mydawer.dart\
+│   └── myfooter.dart\
 ├── providers/\
 │   ├── favorites_provider.dart\
-│   ├── preferences_provider.dart\
-│   └── database_helper.dart\
+│   └── preferences_provider.dart\
+└── theme/\
+    ├── color_scheme.dart\
+    └── themes.dart\
 
 ## Evidencias aplicación
 ![Evidencia](imagenes/EvidenciaAplicacion.png)
